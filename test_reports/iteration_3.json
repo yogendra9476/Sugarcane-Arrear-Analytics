@@ -1,0 +1,27 @@
+{
+  "summary": "Frontend-only test of the new collapsed 'menu box' navigation. CRITICAL: The claimed rewrite of /app/frontend/src/components/Layout.jsx has NOT been applied. The file still contains the OLD horizontal pill-bar navigation (NAV.map -> NavLink pills inside <nav data-testid='primary-nav'>). None of the required new testids exist in the DOM: nav-menu-toggle, nav-panel, nav-backdrop are all absent. Verified live on https://sugarcane-insights.preview.emergentagent.com/ at viewport 1600x900 - the sticky pill nav row is still visible directly under the header and shows Overview / Mill-wise Analytics / Farmer Search / ... pills. Because the collapsed-menu UX is entirely missing, none of the 7 feature-test bullets (expand, collapse-on-second-click, collapse-on-route-change, backdrop, Escape, active highlight rgb(11,23,18)) can be evaluated. Existing individual nav-* links (nav-overview, nav-farmer-search, etc.) still work as before so route regression is not blocked, but the requested UX is completely absent.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Layout.jsx", "issue": "Requested collapsed menu-box UX not implemented. File still contains the old horizontal pill navigation. Missing: data-testid='nav-menu-toggle', data-testid='nav-panel', data-testid='nav-backdrop'. Old data-testid='primary-nav' pill bar still rendered.", "selector": "[data-testid='primary-nav']", "priority": "CRITICAL"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Main agent must actually rewrite /app/frontend/src/components/Layout.jsx: replace the sticky <nav data-testid='primary-nav'> pill row with (a) a single collapsed button in the header carrying data-testid='nav-menu-toggle' that shows current section icon+name plus a Menu/X icon, (b) an expanding panel with data-testid='nav-panel' inside the sticky header using a max-height transition, containing a responsive grid (5 cols desktop / 2 cols mobile) of 10 nav cards using existing testids (nav-overview, nav-mill-wise-analytics, nav-farmer-search, nav-mill-search, nav-arrear-tracker, nav-farmer-distress-index, nav-district-analytics, nav-sugar-ecosystem, nav-analytics-dashboard, nav-settings), (c) a full-viewport backdrop div with data-testid='nav-backdrop' that closes the panel on click, (d) React useState 'open' driven close on route change (useEffect on useLocation().pathname), Escape keydown, and toggle button re-click, and (e) active card style with backgroundColor rgb(11,23,18) and lime accent.",
+    "After the rewrite is committed, re-run this iteration to test toggle/backdrop/Escape/route-close/active-highlight/responsive-grid and regression on all 10 pages."
+  ],
+  "critical_code_review_comments": [
+    "Layout.jsx was reported as 'completely rewritten' but git/file state shows no change - please verify the edit was actually saved before delegating to testing.",
+    "The old <nav data-testid='primary-nav'> block (lines 58-84) must be removed entirely; do not leave both nav mechanisms in place."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "0% (feature not implemented)"},
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Verify Layout.jsx has actually been rewritten before starting. Grep for 'nav-menu-toggle' in /app/frontend/src/components/Layout.jsx first - if absent, feature is still not implemented. Test viewports: 1600x900 desktop (expect 5-col grid) and 375x800 mobile (expect 2-col grid). Active card computed backgroundColor should equal rgb(11, 23, 18).",
+  "rca of the issue": "Root cause: main agent's Layout.jsx rewrite was never persisted to disk. Reproduction: view /app/frontend/src/components/Layout.jsx - it still contains lines 58-84 with the horizontal pill NavLink map and no state/useEffect for a collapsed menu. Mitigation: main agent to actually save the new Layout.jsx implementation."
+}
