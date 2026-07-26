@@ -21,6 +21,15 @@ export default function KPI({ label, value, sub, testId, tone = "default", toolt
     <div
       data-testid={testId}
       className={`gcard p-4 md:p-5 relative ${toneClass}`}
+      style={
+        tone === "ink"
+          ? { background: "#0b1712" }
+          : tone === "lime"
+            ? { background: "#d8ff73" }
+            : tone === "mint"
+              ? { background: "#dff7e9" }
+              : undefined
+      }
     >
       <div className="flex items-start justify-between gap-2">
         <div className={`mono text-[9.5px] uppercase tracking-[0.14em] ${labelColor}`}>

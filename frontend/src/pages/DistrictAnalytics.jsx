@@ -76,16 +76,26 @@ export default function DistrictAnalytics() {
   );
 }
 
-const CustomizedContent = ({ x, y, width, height, name, size, fill }) => (
-  <g>
-    <rect x={x} y={y} width={width} height={height} fill={fill} stroke="#f7f4ec" strokeWidth={2} />
-    {width > 60 && height > 40 && (
-      <>
-        <text x={x + 8} y={y + 20} fill="#f7f4ec" fontSize={12} fontWeight={700}>{name}</text>
-        <text x={x + 8} y={y + 36} fill="#f7f4ec" fontSize={10} fontFamily="DM Mono">
-          {size?.toLocaleString("en-IN")} farmers
-        </text>
-      </>
-    )}
-  </g>
-);
+const CustomizedContent = ({ x, y, width, height, name, size, fill }) => {
+  // Choose text color based on tile luminance so it stays readable on any fill
+  const hex = (fill || "#0f5132").replace("#", "");
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  const textColor = lum > 0.6 ? "#0b1712" : "#f7f4ec";
+  const subColor = lum > 0.6 ? "rgba(11,23,18,0.75)" : "rgba(247,244,236,0.9)";
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="#f7f4ec" strokeWidth={2} />
+      {width > 55 && height > 40 && (
+        <>
+          <text x={x + 8} y={y + 20} fill={textColor} fontSize={12} fontWeight={700}>{name}</text>
+          <text x={x + 8} y={y + 36} fill={subColor} fontSize={10} fontFamily="DM Mono">
+            {size?.toLocaleString("en-IN")}
+          </text>
+        </>
+      )}
+    </g>
+  );
+};

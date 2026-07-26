@@ -1,0 +1,28 @@
+{
+  "summary": "Re-verified contrast/visibility fixes from iteration_1. All four ink-variant KPI cards (Total Mills on /, Total Pending on /arrears, Critical Risk on /distress, Mills on /analytics) now render with computed backgroundColor rgb(11,23,18) as intended — cream value text and lime label are fully readable. Treemap tile labels on /districts are now luminance-aware (Hapur/Ghaziabad amber tiles show dark ink #0b1712, dark-green tiles show cream #f7f4ec). Eyebrow labels on /arrears and /distress darkened to #b03a1e (rgb(176,58,30)). Farmer Search Pending/Critical badges now render #6b1409 text (rgb(107,20,9)) on rgba(231,111,81,0.4) — noticeably darker & more readable. Regression sanity clean on /mill-analytics, /mill-search, /ecosystem, /settings (all load with no error elements). Recharts axis/legend text remains ink #0b1712.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "District Analytics treemap",
+        "issues": ["Contrast now correct, but on the narrowest tiles (Hapur/Ghaziabad amber column) the district name still slightly touches tile edges — cosmetic only, text is readable. Sub-label is now just the count number so no more clipping of the word 'farmers'."]
+      }
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_2.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    ".gcard is now correctly wrapped in @layer components in index.css — tailwind utilities like bg-[#0b1712] override it by cascade layer priority. Belt-and-suspenders inline style in KPI.jsx is redundant but harmless and provides safety against future stylesheet reorder.",
+    "Treemap CustomizedContent luminance calc is correctly discriminating between amber (#e9c46a) and dark-green tiles."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "n/a (not tested)", "frontend": "100% — all 10 routes render readable text; all four ink KPIs confirmed dark; treemap labels contrast-appropriate on both light and dark tiles" },
+  "test_credentials": "n/a",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration_1 identified a source-order CSS bug where .gcard overrode tailwind's bg-[#0b1712] utility on KPI ink cards. Main agent's fix: (a) wrapped .gcard in @layer components in /app/frontend/src/index.css, (b) added inline style={background:'#0b1712'} on the ink tone in KPI.jsx as defensive backup, (c) made treemap label color luminance-aware in DistrictAnalytics.jsx, (d) darkened eyebrow labels to #b03a1e and (e) darkened Pending/Critical badge text to #6b1409. All verified via getComputedStyle across /, /arrears, /distress, /analytics, /districts, /farmers. No follow-up needed.",
+  "rca of the issue": "Fixed. Root cause was .gcard rule sitting outside @layer components so it beat tailwind utility classes on source order. Fix applied: .gcard moved inside @layer components + defensive inline style on KPI ink/lime/mint variants. Verified computed background rgb(11,23,18) on all four ink KPIs."
+}

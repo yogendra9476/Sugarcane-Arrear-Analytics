@@ -19,7 +19,7 @@ export default function ArrearTracker() {
   return (
     <div data-testid="page-arrears" className="space-y-6">
       <div>
-        <div className="mono text-[10.5px] uppercase tracking-[0.2em] text-[#e76f51] mb-3">Arrear Tracker</div>
+        <div className="mono text-[10.5px] uppercase tracking-[0.2em] text-[#b03a1e] mb-3">Arrear Tracker</div>
         <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
           Pending payments across mills
         </h2>

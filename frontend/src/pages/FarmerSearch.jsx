@@ -19,16 +19,16 @@ const useDebounced = (v, ms = 350) => {
 
 const riskColor = (r) => ({
   Low: "bg-[#dff7e9] text-[#0f5132]",
-  Medium: "bg-[#e9c46a]/30 text-[#7a5a12]",
-  High: "bg-[#f4a261]/30 text-[#b03a1e]",
-  Critical: "bg-[#e76f51]/25 text-[#991b1b]",
+  Medium: "bg-[#e9c46a]/40 text-[#5a3f0a]",
+  High: "bg-[#f4a261]/45 text-[#7a2d0f]",
+  Critical: "bg-[#e76f51]/40 text-[#6b1409]",
 }[r] || "bg-slate-100");
 
 const payColor = (s) => ({
   Paid: "bg-[#dff7e9] text-[#0f5132]",
-  Partial: "bg-[#e9c46a]/30 text-[#7a5a12]",
-  Delayed: "bg-[#f4a261]/30 text-[#b03a1e]",
-  Pending: "bg-[#e76f51]/25 text-[#991b1b]",
+  Partial: "bg-[#e9c46a]/40 text-[#5a3f0a]",
+  Delayed: "bg-[#f4a261]/45 text-[#7a2d0f]",
+  Pending: "bg-[#e76f51]/40 text-[#6b1409]",
 }[s] || "bg-slate-100");
 
 export default function FarmerSearch() {
