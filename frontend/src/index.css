@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+    --cream: #f7f4ec;
+    --cream-2: #f0ecdf;
+    --ink: #0b1712;
+    --ink-2: #1a2a22;
+    --muted: #66736d;
+    --line: rgba(11, 23, 18, 0.09);
+    --green: #0f5132;
+    --green-2: #187a4c;
+    --green-3: #2d6a4f;
+    --mint: #dff7e9;
+    --lime: #d8ff73;
+    --lime-dark: #b8d94f;
+    --amber: #e9c46a;
+    --orange: #f4a261;
+    --red: #e76f51;
+    --red-dark: #991b1b;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+}
+
+@layer base {
+    :root {
+        --background: 48 45% 95%;
+        --foreground: 158 34% 6%;
+        --card: 0 0% 100%;
+        --card-foreground: 158 34% 6%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 158 34% 6%;
+        --primary: 152 68% 19%;
+        --primary-foreground: 60 45% 95%;
+        --secondary: 48 28% 90%;
+        --secondary-foreground: 158 34% 6%;
+        --muted: 48 22% 88%;
+        --muted-foreground: 155 6% 43%;
+        --accent: 76 100% 73%;
+        --accent-foreground: 158 34% 6%;
+        --destructive: 12 76% 61%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 158 34% 6% / 0.09;
+        --input: 158 34% 6% / 0.14;
+        --ring: 152 68% 19%;
+        --radius: 0.75rem;
+    }
+}
+
+html,
+body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-image:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(216, 255, 115, 0.24),
+            transparent 55%
+        ),
+        radial-gradient(
+            circle at 85% 8%,
+            rgba(91, 205, 143, 0.16),
+            transparent 55%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(11, 23, 18, 0.028) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(11, 23, 18, 0.028) 1px,
+            transparent 1px
+        );
+    background-size:
+        auto,
+        auto,
+        48px 48px,
+        48px 48px;
+    background-attachment: fixed;
+}
+
+.mono {
+    font-family: "DM Mono", ui-monospace, monospace;
+    letter-spacing: 0.02em;
+}
+
+.font-display {
+    font-family: "Manrope", sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* Card baseline */
+.gcard {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 14px 45px rgba(11, 23, 18, 0.055);
+    transition:
+        box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.gcard:hover {
+    box-shadow: 0 28px 65px rgba(11, 23, 18, 0.1);
+    transform: translateY(-2px);
+}
+
+/* KPI value */
+.kpi-value {
+    font-family: "DM Mono", monospace;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* Chip / badge */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.6rem;
+    background: var(--mint);
+    color: var(--green);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.chip-lime {
+    background: var(--lime);
+    color: var(--ink);
+}
+.chip-red {
+    background: rgba(231, 111, 81, 0.18);
+    color: #b03a1e;
+}
+.chip-amber {
+    background: rgba(233, 196, 106, 0.28);
+    color: #7a5a12;
+}
+
+/* Sticky top nav */
+.nav-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+.nav-scroll::-webkit-scrollbar-thumb {
+    background: rgba(11, 23, 18, 0.25);
+    border-radius: 4px;
+}
+
+/* Table row hover */
+.gtable tbody tr {
+    transition: background 0.15s ease;
+}
+.gtable tbody tr:hover {
+    background: rgba(216, 255, 115, 0.14);
+}
+
+/* Recharts custom tooltip */
+.rc-tooltip {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.72rem;
+    font-family: "DM Mono", monospace;
+    box-shadow: 0 12px 30px rgba(11, 23, 18, 0.25);
+}
+
+/* Skeleton pulse */
+@keyframes pulse-cane {
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+.skel {
+    background: linear-gradient(
+        90deg,
+        rgba(11, 23, 18, 0.06),
+        rgba(11, 23, 18, 0.12),
+        rgba(11, 23, 18, 0.06)
+    );
+    background-size: 200% 100%;
+    animation: pulse-cane 1.4s ease-in-out infinite;
+    border-radius: 8px;
+}
