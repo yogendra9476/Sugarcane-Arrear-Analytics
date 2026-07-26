@@ -43,7 +43,7 @@ export default function AnalyticsDashboard() {
               <YAxis yAxisId="l" tick={{ fontSize: 10 }} />
               <YAxis yAxisId="r" orientation="right" tick={{ fontSize: 10 }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Bar yAxisId="l" dataKey="count" name="Farmers" fill="#0f5132" radius={[6, 6, 0, 0]} />
               <Bar yAxisId="r" dataKey="avg_distress" name="Avg Distress" fill="#e9c46a" radius={[6, 6, 0, 0]} />
             </BarChart>
@@ -72,7 +72,7 @@ export default function AnalyticsDashboard() {
             <YAxis yAxisId="l" tick={{ fontSize: 10 }} />
             <YAxis yAxisId="r" orientation="right" tick={{ fontSize: 10 }} />
             <Tooltip {...CHART_TOOLTIP_STYLE} />
-            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
             <Line yAxisId="l" dataKey="cane_crushed_lakh_mt" name="Cane (L MT)" stroke="#0f5132" strokeWidth={2.5} />
             <Line yAxisId="l" dataKey="sugar_produced_lakh_mt" name="Sugar (L MT)" stroke="#e9c46a" strokeWidth={2.5} />
             <Line yAxisId="r" dataKey="ethanol_million_litres" name="Ethanol (Mn L)" stroke="#2563eb" strokeWidth={2.5} />

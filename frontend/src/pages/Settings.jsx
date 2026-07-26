@@ -25,23 +25,23 @@ export default function Settings() {
       <div className="gcard p-6 space-y-4">
         <div>
           <div className="text-[14px] font-semibold">Platform</div>
-          <div className="text-[12px] text-[#66736d]">Ganna Analytics 2.0 · Western UP</div>
+          <div className="text-[12px] text-[#0b1712]/65">Ganna Analytics 2.0 · Western UP</div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div className="bg-[#f0ecdf] rounded-lg p-3">
-            <div className="mono text-[9.5px] uppercase text-[#66736d]">Region</div>
+            <div className="mono text-[9.5px] uppercase text-[#0b1712]/65">Region</div>
             <div className="text-[13px] font-semibold mt-1">Western UP</div>
           </div>
           <div className="bg-[#f0ecdf] rounded-lg p-3">
-            <div className="mono text-[9.5px] uppercase text-[#66736d]">Season</div>
+            <div className="mono text-[9.5px] uppercase text-[#0b1712]/65">Season</div>
             <div className="text-[13px] font-semibold mt-1">2024–25</div>
           </div>
           <div className="bg-[#f0ecdf] rounded-lg p-3">
-            <div className="mono text-[9.5px] uppercase text-[#66736d]">API Base</div>
+            <div className="mono text-[9.5px] uppercase text-[#0b1712]/65">API Base</div>
             <div className="mono text-[10.5px] mt-1 break-all">{API}</div>
           </div>
           <div className="bg-[#f0ecdf] rounded-lg p-3">
-            <div className="mono text-[9.5px] uppercase text-[#66736d]">Status</div>
+            <div className="mono text-[9.5px] uppercase text-[#0b1712]/65">Status</div>
             <Badge className="mt-1 bg-[#dff7e9] text-[#0f5132] border-0">Live</Badge>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function Settings() {
       <div className="gcard p-6 space-y-4">
         <div>
           <div className="text-[14px] font-semibold">Data</div>
-          <div className="text-[12px] text-[#66736d]">
+          <div className="text-[12px] text-[#0b1712]/65">
             Realistic Western UP synthetic dataset · Reseed will wipe and regenerate all farmers, mills, complaints.
           </div>
         </div>

@@ -84,7 +84,7 @@ export default function MillAnalytics() {
                     ))}
                   </Pie>
                   <Tooltip {...CHART_TOOLTIP_STYLE} />
-                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
                 </PieChart>
               </ResponsiveContainer>
             </ChartCard>

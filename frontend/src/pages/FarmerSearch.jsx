@@ -91,7 +91,7 @@ export default function FarmerSearch() {
         <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
           Find any farmer across Western UP
         </h2>
-        <p className="text-[13px] text-[#66736d] mt-2">
+        <p className="text-[13px] text-[#0b1712]/65 mt-2">
           {fmt.num(total)} matching records · Real-time debounced search · Export CSV / Excel / PDF
         </p>
       </div>
@@ -100,7 +100,7 @@ export default function FarmerSearch() {
       <div className="gcard p-4 space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
           <div className="lg:col-span-2 relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#66736d]" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#0b1712]/65" />
             <Input
               data-testid="farmer-search-input"
               placeholder="Search by name, code, phone or village…"
@@ -182,10 +182,10 @@ export default function FarmerSearch() {
             </thead>
             <tbody>
               {isLoading && (
-                <tr><td colSpan={10} className="p-8 text-center text-[#66736d]">Loading…</td></tr>
+                <tr><td colSpan={10} className="p-8 text-center text-[#0b1712]/65">Loading…</td></tr>
               )}
               {!isLoading && rows.length === 0 && (
-                <tr><td colSpan={10} className="p-8 text-center text-[#66736d]">No farmers match.</td></tr>
+                <tr><td colSpan={10} className="p-8 text-center text-[#0b1712]/65">No farmers match.</td></tr>
               )}
               {rows.map((f) => (
                 <tr key={f.id} data-testid={`row-farmer-${f.id}`}
@@ -212,7 +212,7 @@ export default function FarmerSearch() {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between p-3 border-t border-[#0b1712]/08 text-[11px] text-[#66736d]">
+        <div className="flex items-center justify-between p-3 border-t border-[#0b1712]/08 text-[11px] text-[#0b1712]/65">
           <span>Page {page} of {pages || 1} · {fmt.num(total)} total</span>
           <div className="flex gap-2">
             <Button size="sm" variant="outline" disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</Button>
@@ -247,14 +247,14 @@ export default function FarmerSearch() {
                   ["Risk", detail.data.farmer.risk_level],
                 ].map(([l, v]) => (
                   <div key={l} className="bg-[#f0ecdf] rounded-lg p-3">
-                    <div className="mono text-[9.5px] uppercase text-[#66736d] tracking-widest">{l}</div>
+                    <div className="mono text-[9.5px] uppercase text-[#0b1712]/65 tracking-widest">{l}</div>
                     <div className="text-[13px] font-semibold mt-1">{v}</div>
                   </div>
                 ))}
               </div>
               {detail.data.complaints?.length > 0 && (
                 <div>
-                  <div className="mono text-[10px] uppercase text-[#66736d] tracking-widest mb-2">Complaints</div>
+                  <div className="mono text-[10px] uppercase text-[#0b1712]/65 tracking-widest mb-2">Complaints</div>
                   <div className="space-y-2">
                     {detail.data.complaints.map((c) => (
                       <div key={c.id} className="flex items-center justify-between bg-[#f0ecdf] rounded-lg px-3 py-2 text-[12px]">

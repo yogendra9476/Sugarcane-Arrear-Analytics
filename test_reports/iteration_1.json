@@ -1,0 +1,63 @@
+{
+  "summary": "Frontend contrast/visibility verification across all 10 routes (/, /mill-analytics, /farmers, /mill-search, /arrears, /distress, /districts, /ecosystem, /analytics, /settings). App loads and navigation works. Ran a JS-based contrast scanner on every page + captured full-page screenshots. Found ONE critical text-visibility regression that reproduces exactly the user complaint, plus one visual issue on the District treemap. All other pages (Mill Analytics, Mill Search, Ecosystem, Settings, Farmer Search text) render with readable ink text and Recharts axis/legend labels are now dark and legible.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "KPI.jsx (tone='ink' variant)",
+        "issue": "CRITICAL — Dark-ink KPI cards render with WHITE background, not the intended #0b1712 dark background. Root cause: the tailwind utility class `bg-[#0b1712]` on the ink card is being overridden by the `.gcard` rule in /app/frontend/src/index.css (line 103) which sets `background: rgba(255,255,255,0.72)`. `.gcard` is declared plain (outside @layer) AFTER the @tailwind directives, so it wins on source order at equal specificity. Verified via getComputedStyle: on the Overview 'Total Mills' card whose className is `gcard p-4 md:p-5 relative bg-[#0b1712]`, the computed backgroundColor is `rgba(255, 255, 255, 0.72)`. Because the KPI value/label are colored `text-[#f7f4ec]` (cream) and `text-[#d8ff73]` (lime) assuming a dark background, they now appear as cream-on-white and lime-on-white — completely unreadable. Contrast ratio measured ~1.10.\n\nAffected pages (every page that uses a KPI with tone='ink'):\n  • / (Overview)  → 'TOTAL MILLS 46 · Active in Western UP' card is blank/invisible.\n  • /arrears     → 'TOTAL PENDING ₹465.6 Cr · This season' card invisible.\n  • /distress    → 'CRITICAL RISK 76 · 0.1% · avg score 77.8' card invisible.\n  • /analytics   → 'MILLS 46' card invisible.\n\nFix suggestions (main agent picks one):\n  (a) In KPI.jsx use inline style for the ink variant, e.g. `style={ tone==='ink' ? {background:'#0b1712'} : undefined }` — will win because inline > class.\n  (b) In index.css add `.gcard.tone-ink { background: #0b1712; }` and set `toneClass` to `tone-ink` (or just add a `.gcard[class*=\"bg-[#0b1712]\"]` scoped rule) — brittle.\n  (c) Move `.gcard` into `@layer components` so Tailwind utilities (from @layer utilities) reliably override it, then keep `bg-[#0b1712]` (recommended, cleanest).",
+        "selector": "[data-testid^='kpi-'][class*='bg-[#0b1712]']",
+        "priority": "CRITICAL"
+      },
+      {
+        "component": "DistrictAnalytics.jsx — Treemap tile labels",
+        "issue": "Treemap tiles use hard-coded `fill=\"#f7f4ec\"` (cream) for both the district name and the '<N> farmers' sub-label (lines 84–86). This is fine on dark-green tiles, but for tiles whose distress score maps to a light color (amber/gold #e9c46a used for Hapur and Ghaziabad in current data), the cream text is essentially invisible on the light amber background (screenshot /app/.screenshots/districts_v.png shows Hapur/Ghaziabad tiles with barely-visible cream labels). Also on narrower tiles the numeric part of the sub-label is being clipped, leaving only the word 'farmers' visible — a layout bug on top of the contrast bug. Recommend: pick text color based on luminance of the tile fill (dark text on light tiles, cream text on dark tiles), and/or add a subtle text shadow.",
+        "selector": ".recharts-treemap text",
+        "priority": "HIGH"
+      },
+      {
+        "component": "ArrearTracker.jsx / DistressIndex.jsx section header",
+        "issue": "Section eyebrow labels 'ARREAR TRACKER' and 'FARMER DISTRESS INDEX' use `text-[#e76f51]` (coral) on the cream body background. Measured contrast 2.81:1 — below WCAG AA (4.5:1) even for large text (needs 3:1). Marginal but readable; consider darkening to #b03a1e or #991b1b for consistency with other alert text on the site.",
+        "selector": ".mono.text-\\[\\#e76f51\\]",
+        "priority": "LOW"
+      },
+      {
+        "component": "FarmerSearch.jsx status/risk badges",
+        "issue": "'Pending' and 'Critical' badges render #991b1b text on rgba(231,111,81,0.25) background — contrast 2.69:1, marginal for small badge text. Not a regression from this fix but flagged for completeness.",
+        "selector": "[data-testid^='row-'] .rounded-md",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Overview, Arrears, Distress, Analytics",
+        "issues": ["The 'ink' tone KPI cards (Total Mills, Total Pending, Critical Risk, Mills) look blank/broken because the dark background is not being applied — this is the same visibility complaint the user originally reported; the bug fix did not land for this card variant."]
+      },
+      {
+        "screen": "District Analytics",
+        "issues": ["Treemap sub-label 'X farmers' is clipped on narrow tiles.", "Cream text unreadable on light amber tiles (Hapur, Ghaziabad)."]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "FIX #1 (critical, user-visible regression): Make KPI tone='ink' actually render with the dark #0b1712 background. The tailwind class is overridden by .gcard in index.css. Recommend moving .gcard into @layer components in /app/frontend/src/index.css, OR adding an inline style={{background:'#0b1712'}} on the ink variant in /app/frontend/src/components/KPI.jsx. Verify on / , /arrears, /distress, /analytics after fix.",
+    "FIX #2: In /app/frontend/src/pages/DistrictAnalytics.jsx CustomizedContent, choose treemap label color based on tile luminance (dark ink for light tiles, cream for dark tiles). Also ensure the sub-label doesn't get clipped (increase width guard or wrap).",
+    "OPTIONAL: Darken the coral eyebrow labels on Arrears/Distress from #e76f51 to something like #b03a1e for AA-compliant contrast on cream.",
+    "OPTIONAL: Bump Pending/Critical badge text/background contrast in FarmerSearch to meet AA."
+  ],
+  "critical_code_review_comments": [
+    ".gcard is authored as plain CSS (index.css line 103) but semantically it's a component style — it should live inside @layer components so tailwind utilities can override it. This exact ordering problem just broke the KPI 'ink' variant.",
+    "Recharts axis/legend/global overrides in index.css look good and take effect (verified — axis ticks now render #0b1712, legend text ink). No regression there.",
+    "DistrictAnalytics CustomizedContent hard-codes label fill; should be luminance-aware."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "n/a (not tested)", "frontend": "80% (8/10 routes fully readable; Overview + Arrears + Distress + Analytics have invisible ink-KPI card; Districts has treemap contrast bug)" },
+  "test_credentials": "n/a",
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "The fix in KPI.jsx assumes bg-[#0b1712] utility will paint the dark background, but .gcard in index.css overrides it (source-order wins). Reproduce with: navigate to /, inspect the 'Total Mills' KPI card — computed background is rgba(255,255,255,0.72) instead of #0b1712, and the cream '46' becomes invisible. After main agent's fix, re-verify all four ink-variant KPI locations (/, /arrears, /distress, /analytics) plus /districts treemap.",
+  "rca of the issue": "KPI.jsx sets className `gcard p-4 md:p-5 relative bg-[#0b1712]` for tone='ink'. Both `.gcard` and `.bg-[\\#0b1712]` are single-class selectors → equal specificity. CSS then falls back to source order. In the compiled stylesheet, `@tailwind utilities` is emitted first (top of index.css) then `.gcard { background: rgba(255,255,255,0.72); }` appears later on line 103, so .gcard wins. Result: cream-colored text (#f7f4ec) and lime label (#d8ff73) that were designed to sit on a dark ink background are rendered on a translucent-white gcard background → contrast ~1.1:1 → the value/label/sub-text are effectively invisible. This is the exact user-reported symptom the fix was supposed to address; the fix corrected `text-*` colors but never verified the background actually became dark. Mitigation: move .gcard into @layer components (so tailwind utilities override it), or apply the ink background via inline style, or add !important."
+}

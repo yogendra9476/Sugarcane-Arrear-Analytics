@@ -40,7 +40,7 @@ export default function ArrearTracker() {
               <XAxis dataKey="season" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Line dataKey="arrear_cr" name="Arrear ₹Cr" stroke="#e76f51" strokeWidth={2.5} dot={{ r: 4 }} />
               <Line dataKey="paid_cr" name="Paid ₹Cr" stroke="#187a4c" strokeWidth={2.5} dot={{ r: 4 }} />
             </LineChart>
@@ -62,7 +62,7 @@ export default function ArrearTracker() {
 
       <div className="gcard overflow-hidden">
         <div className="p-4 border-b border-[#0b1712]/08">
-          <div className="mono text-[10px] uppercase tracking-widest text-[#66736d]">Worst Arrear Mills</div>
+          <div className="mono text-[10px] uppercase tracking-widest text-[#0b1712]/65">Worst Arrear Mills</div>
           <div className="text-[14px] font-semibold">Top 15 mills by pending amount</div>
         </div>
         <div className="overflow-x-auto">

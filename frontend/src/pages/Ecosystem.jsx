@@ -24,10 +24,20 @@ export default function Ecosystem() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
             {d.value_chain.map((row) => (
-              <div key={row.actor} className="gcard p-4">
-                <div className="mono text-[9.5px] uppercase tracking-widest text-[#66736d]">{row.actor}</div>
-                <div className="kpi-value text-[1.5rem] mt-2" style={{ color: row.color }}>₹{row.value_per_qtl}</div>
-                <div className="text-[11px] text-[#66736d] mt-1">{row.share_pct}% of chain</div>
+              <div key={row.actor} className="gcard p-4 relative overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 h-1 w-full"
+                  style={{ background: row.color }}
+                />
+                <div className="mono text-[9.5px] uppercase tracking-widest text-[#0b1712]/60">{row.actor}</div>
+                <div className="kpi-value text-[1.5rem] mt-2 text-[#0b1712]">₹{row.value_per_qtl}</div>
+                <div className="text-[11px] text-[#0b1712]/60 mt-1">
+                  <span
+                    className="inline-block w-2 h-2 rounded-full mr-1.5 align-middle"
+                    style={{ background: row.color }}
+                  />
+                  {row.share_pct}% of chain
+                </div>
               </div>
             ))}
           </div>
@@ -61,7 +71,7 @@ export default function Ecosystem() {
                     <Cell fill="#0f5132" />
                   </Pie>
                   <Tooltip {...CHART_TOOLTIP_STYLE} />
-                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                  <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
                 </PieChart>
               </ResponsiveContainer>
             </ChartCard>
@@ -69,25 +79,25 @@ export default function Ecosystem() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="gcard p-5">
-              <div className="mono text-[10px] uppercase tracking-widest text-[#66736d]">Khandsari Growth (2024-25)</div>
+              <div className="mono text-[10px] uppercase tracking-widest text-[#0b1712]/65">Khandsari Growth (2024-25)</div>
               <div className="kpi-value text-2xl mt-2">{fmt.num(d.khandsari.new_units_2024_25)}</div>
-              <div className="text-[12px] text-[#66736d]">New units added · {fmt.num(d.khandsari.capacity_tcd)} TCD capacity</div>
+              <div className="text-[12px] text-[#0b1712]/65">New units added · {fmt.num(d.khandsari.capacity_tcd)} TCD capacity</div>
               <div className="mt-3 pt-3 border-t border-[#0b1712]/08 text-[11px]">
                 Total new crushing capacity (mills + khandsari): <b>{fmt.num(d.khandsari.total_new_capacity_tcd)} TCD</b>
               </div>
             </div>
             <div className="gcard p-5">
-              <div className="mono text-[10px] uppercase tracking-widest text-[#66736d]">Women SHGs</div>
+              <div className="mono text-[10px] uppercase tracking-widest text-[#0b1712]/65">Women SHGs</div>
               <div className="kpi-value text-2xl mt-2">{fmt.num(d.shg.shg_count)}</div>
-              <div className="text-[12px] text-[#66736d]">Groups active in UP cane sector</div>
+              <div className="text-[12px] text-[#0b1712]/65">Groups active in UP cane sector</div>
               <div className="mt-3 pt-3 border-t border-[#0b1712]/08 text-[11px]">
                 {d.shg.seedlings_cr} Cr seedlings produced across nurseries.
               </div>
             </div>
             <div className="gcard p-5">
-              <div className="mono text-[10px] uppercase tracking-widest text-[#66736d]">Credit Access</div>
+              <div className="mono text-[10px] uppercase tracking-widest text-[#0b1712]/65">Credit Access</div>
               <div className="kpi-value text-2xl mt-2">{d.credit.crop_loan_rate_pct_min}–{d.credit.crop_loan_rate_pct_max}%</div>
-              <div className="text-[12px] text-[#66736d]">Formal crop loan rate</div>
+              <div className="text-[12px] text-[#0b1712]/65">Formal crop loan rate</div>
               <div className="mt-3 pt-3 border-t border-[#0b1712]/08 text-[11px] text-[#991b1b]">
                 Moneylender rate: {d.credit.moneylender_rate_pct_min}–{d.credit.moneylender_rate_pct_max}%
               </div>

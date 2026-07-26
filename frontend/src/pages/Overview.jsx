@@ -28,7 +28,7 @@ export default function Overview() {
           The state of the <span className="text-[#0f5132]">sugarcane belt</span>,<br />
           measured end-to-end.
         </h1>
-        <p className="text-[15px] text-[#66736d] mt-5 max-w-2xl">
+        <p className="text-[15px] text-[#0b1712]/65 mt-5 max-w-2xl">
           Enterprise analytics for the Uttar Pradesh Cane Department covering{" "}
           <b>{fmt.num(k.total_mills)} mills</b>, <b>{fmt.num(k.total_farmers)} farmers</b>,{" "}
           <b>{fmt.num(k.registered_villages)} villages</b> across{" "}
@@ -66,7 +66,7 @@ export default function Overview() {
               <XAxis dataKey="district" tick={{ fontSize: 10 }} angle={-30} textAnchor="end" height={60} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Bar dataKey="Private" stackId="a" fill="#0f5132" />
               <Bar dataKey="Cooperative" stackId="a" fill="#d8ff73" />
             </BarChart>
@@ -81,7 +81,7 @@ export default function Overview() {
               <XAxis dataKey="season" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Bar dataKey="paid_cr" name="Paid" stackId="a" fill="#187a4c" />
               <Bar dataKey="arrear_cr" name="Arrear" stackId="a" fill="#e76f51" />
             </BarChart>
@@ -99,7 +99,7 @@ export default function Overview() {
               <XAxis dataKey="season" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Line type="monotone" dataKey="cane_crushed_lakh_mt" name="Cane" stroke="#0f5132" strokeWidth={2.5} dot={{ r: 3 }} />
               <Line type="monotone" dataKey="sugar_produced_lakh_mt" name="Sugar" stroke="#e9c46a" strokeWidth={2.5} dot={{ r: 3 }} />
             </LineChart>
@@ -134,7 +134,7 @@ export default function Overview() {
                 ))}
               </Pie>
               <Tooltip {...CHART_TOOLTIP_STYLE} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
             </PieChart>
           </ResponsiveContainer>
         </ChartCard>

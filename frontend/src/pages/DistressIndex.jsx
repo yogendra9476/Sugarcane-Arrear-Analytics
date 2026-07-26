@@ -24,7 +24,7 @@ export default function DistressIndex() {
         <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
           A composite score for {fmt.num(s.total_farmers)} farmers
         </h2>
-        <p className="text-[13px] text-[#66736d] mt-2">
+        <p className="text-[13px] text-[#0b1712]/65 mt-2">
           At-risk pending amount: <b>{fmt.crore(s.at_risk_pending_cr)}</b>
         </p>
       </div>
@@ -43,7 +43,7 @@ export default function DistressIndex() {
       </div>
 
       <div className="gcard p-5">
-        <div className="mono text-[10px] uppercase tracking-widest text-[#66736d] mb-2">Methodology</div>
+        <div className="mono text-[10px] uppercase tracking-widest text-[#0b1712]/65 mb-2">Methodology</div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {(s.methodology?.components || []).map((c) => (
             <div key={c.name} className="bg-[#f0ecdf] rounded-lg p-3">
@@ -52,7 +52,7 @@ export default function DistressIndex() {
             </div>
           ))}
         </div>
-        <div className="mt-3 mono text-[10.5px] text-[#66736d]">
+        <div className="mt-3 mono text-[10.5px] text-[#0b1712]/65">
           Thresholds → Low &lt; 35 · Medium 35–55 · High 55–75 · Critical ≥ 75
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function DistressIndex() {
                        fill={["#e76f51", "#0f5132", "#2563eb", "#e9c46a"][i]}
                        fillOpacity={0.15} strokeWidth={2} />
               ))}
-              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Legend wrapperStyle={{ fontSize: 11, color: "#0b1712" }} />
               <Tooltip {...CHART_TOOLTIP_STYLE} />
             </RadarChart>
           </ResponsiveContainer>

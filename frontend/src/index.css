@@ -201,3 +201,48 @@ body {
     animation: pulse-cane 1.4s ease-in-out infinite;
     border-radius: 8px;
 }
+
+/* Recharts – force readable ink text everywhere */
+.recharts-cartesian-axis-tick text,
+.recharts-polar-angle-axis-tick text,
+.recharts-polar-radius-axis-tick text,
+.recharts-label,
+.recharts-text {
+    fill: #0b1712 !important;
+    font-size: 10.5px;
+    font-family: "DM Sans", "Manrope", sans-serif;
+}
+.recharts-legend-item-text {
+    color: #0b1712 !important;
+    font-size: 11px !important;
+    font-weight: 500;
+}
+.recharts-cartesian-grid line {
+    stroke: rgba(11, 23, 18, 0.08);
+}
+.recharts-tooltip-cursor {
+    fill: rgba(216, 255, 115, 0.18);
+}
+.recharts-default-tooltip {
+    background: #0b1712 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    color: #f7f4ec !important;
+}
+.recharts-default-tooltip .recharts-tooltip-label {
+    color: #d8ff73 !important;
+    font-family: "DM Mono", monospace;
+    font-size: 10px !important;
+    text-transform: uppercase;
+}
+.recharts-default-tooltip .recharts-tooltip-item {
+    color: #f7f4ec !important;
+    font-family: "DM Mono", monospace;
+    font-size: 11px !important;
+}
+
+/* Any muted text should still meet WCAG on cream — bump contrast */
+.text-muted-safe {
+    color: rgba(11, 23, 18, 0.68);
+}

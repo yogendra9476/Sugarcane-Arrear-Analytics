@@ -35,7 +35,7 @@ export default function Layout() {
               <div className="font-display text-[15px] font-bold tracking-tight">
                 Ganna Analytics
               </div>
-              <div className="mono text-[9.5px] uppercase text-[#66736d] tracking-widest">
+              <div className="mono text-[9.5px] uppercase text-[#0b1712]/65 tracking-widest">
                 Western UP · Enterprise
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-[#0b1712]/10 py-6 text-center mono text-[10.5px] uppercase tracking-widest text-[#66736d]">
+      <footer className="border-t border-[#0b1712]/10 py-6 text-center mono text-[10.5px] uppercase tracking-widest text-[#0b1712]/65">
         Ganna Analytics 2.0 · Built for the Western UP Cane Ecosystem
       </footer>
     </div>

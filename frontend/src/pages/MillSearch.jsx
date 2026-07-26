@@ -64,7 +64,7 @@ export default function MillSearch() {
       <div className="gcard p-4 space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
           <div className="lg:col-span-2 relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#66736d]" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#0b1712]/65" />
             <Input data-testid="mill-search-input" placeholder="Mill name, code or district…"
                    value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="pl-9 bg-white/70" />
           </div>
@@ -119,14 +119,14 @@ export default function MillSearch() {
               </tr>
             </thead>
             <tbody>
-              {isLoading && <tr><td colSpan={9} className="p-8 text-center text-[#66736d]">Loading…</td></tr>}
-              {!isLoading && rows.length === 0 && <tr><td colSpan={9} className="p-8 text-center text-[#66736d]">No mills match.</td></tr>}
+              {isLoading && <tr><td colSpan={9} className="p-8 text-center text-[#0b1712]/65">Loading…</td></tr>}
+              {!isLoading && rows.length === 0 && <tr><td colSpan={9} className="p-8 text-center text-[#0b1712]/65">No mills match.</td></tr>}
               {rows.map((m) => (
                 <tr key={m.id} data-testid={`row-mill-${m.id}`} className="border-t border-[#0b1712]/06 cursor-pointer"
                     onClick={() => nav(`/mill-analytics?mill=${m.id}`)}>
                   <td className="px-3 py-2.5">
                     <div className="font-semibold">{m.name}</div>
-                    <div className="mono text-[9.5px] text-[#66736d] uppercase">{m.code}</div>
+                    <div className="mono text-[9.5px] text-[#0b1712]/65 uppercase">{m.code}</div>
                   </td>
                   <td className="px-3 py-2.5">{m.district_name}</td>
                   <td className="px-3 py-2.5">
@@ -156,7 +156,7 @@ export default function MillSearch() {
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-between p-3 border-t border-[#0b1712]/08 text-[11px] text-[#66736d]">
+        <div className="flex items-center justify-between p-3 border-t border-[#0b1712]/08 text-[11px] text-[#0b1712]/65">
           <span>Page {page} of {pages || 1} · {fmt.num(total)} total</span>
           <div className="flex gap-2">
             <Button size="sm" variant="outline" disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</Button>
